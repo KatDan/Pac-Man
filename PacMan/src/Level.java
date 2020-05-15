@@ -6,101 +6,99 @@ import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
-public class Level {
-    public int sirka;
-    public int vyska;
-    public JLabel skore_label;
-    public JLabel you_won_label;
+import static javax.imageio.ImageIO.read;
 
-    public Blok[][] bloky;
+public class Level {
+    public int width;
+    public int height;
+    public JLabel score_label;
+
+    public Block[][] blocks;
 
     public List<Apple> apples;
-    public boolean running = true;
-    public List<Bubak> bubaci;
-    public List<Zivot> zivoty;
+    public List<Ghost> ghosts;
+    public List<Life> lives;
 
     public Level(){
         apples = new ArrayList<>();
-        bubaci = new ArrayList<>();
-        zivoty = new ArrayList<>();
+        ghosts = new ArrayList<>();
+        lives = new ArrayList<>();
+        score_label = new JLabel("Your score: 0", JLabel.CENTER);
+        score_label.setOpaque(true);
 
-        skore_label = new JLabel("Your score: 0", JLabel.CENTER);
-        skore_label.setOpaque(true);
         try {
-            BufferedImage mapa = ImageIO.read(getClass().getResource("/mapa.png"));
-            this.sirka = mapa.getWidth();
-            this.vyska = mapa.getHeight();
+            //vygenerovanie mapy a postav z obrazka
+            BufferedImage map = ImageIO.read(getClass().getResource("/mapa.png"));
+            this.width = map.getWidth();
+            this.height = map.getHeight();
 
-            bloky = new Blok[sirka][vyska];
+            blocks = new Block[width][height];
+            int[] pixels = new int[width * height];
+            map.getRGB(0,0, width, height, pixels, 0, width);
 
-            int[] pixely = new int[sirka*vyska];
-            mapa.getRGB(0,0,sirka,vyska, pixely, 0,sirka);
-            for(int y = 0; y < vyska; y++){
-                for(int x = 0; x < sirka; x++){
-                    int hodnota = pixely[x + (y*sirka)];
-                    Vrchol v;
-                    switch (hodnota){
+            for(int y = 0; y < height; y++){
+                for(int x = 0; x < width; x++){
+                    int value = pixels[x + (y* width)];
+                    Vertex v;
+                    switch (value){
                         //biela
                         case 0xffffffff:
                             apples.add(new Apple(x*32,y*32));
-                            v = new Vrchol(x,y);
-                            najdi_susedov(v);
-                            Hlavna.bludisko.graf.add(v);
+                            v = new Vertex(x,y);
+                            find_neighbors(v);
+                            Game.maze.graph.add(v);
                             break;
                         //cierna
                         case 0xff000000:
-                            bloky[x][y] = new Blok(x*32,y*32);
+                            blocks[x][y] = new Block(x*32,y*32);
                             break;
                         //zlta
                         case 0xffffff00:
-                            Hlavna.hrac.x = x*32;
-                            Hlavna.hrac.y = y*32;
-                            v = new Vrchol(x,y);
-                            Hlavna.hrac.pozicia = v;
-                            najdi_susedov(v);
-                            Hlavna.bludisko.graf.add(v);
-
+                            Game.player.x = x*32;
+                            Game.player.y = y*32;
+                            v = new Vertex(x,y);
+                            Game.player.position = v;
+                            find_neighbors(v);
+                            Game.maze.graph.add(v);
                             break;
                         //cervena
                         case 0xffff0000:
-
-                            v = new Vrchol(x,y);
-                            najdi_susedov(v);
-                            Hlavna.bludisko.graf.add(v);
-                            bubaci.add(new Bubak(x*32,y*32,0,32,v));
+                            v = new Vertex(x,y);
+                            find_neighbors(v);
+                            Game.maze.graph.add(v);
+                            ghosts.add(new Ghost(x*32,y*32,0,32,v));
                             break;
                         //modra
                         case 0xff0000ff:
-
-                            v = new Vrchol(x,y);
-                            najdi_susedov(v);
-                            Hlavna.bludisko.graf.add(v);
-                            //Hlavna.bludisko.domov = new Node(new Vrchol(x,y));
-                            bubaci.add(new Bubak(x*32,y*32,32,32,v));
+                            v = new Vertex(x,y);
+                            find_neighbors(v);
+                            Game.maze.graph.add(v);
+                            ghosts.add(new Ghost(x*32,y*32,32,32,v));
                             break;
                         //zelena
                         case 0xff00ff00:
-
-                            v = new Vrchol(x,y);
-                            najdi_susedov(v);
-                            Hlavna.bludisko.graf.add(v);
-                            bubaci.add(new Bubak(x*32,y*32,64,32,v));
+                            v = new Vertex(x,y);
+                            find_neighbors(v);
+                            Game.maze.graph.add(v);
+                            ghosts.add(new Ghost(x*32,y*32,64,32,v));
                             break;
                         default:
-                            v = new Vrchol(x,y);
-                            najdi_susedov(v);
-                            Hlavna.bludisko.graf.add(v);
+                            //bloky okolo bubakov, kde nechceme jablcka
+                            v = new Vertex(x,y);
+                            find_neighbors(v);
+                            Game.maze.graph.add(v);
                             break;
                     }
                 }
             }
-            skore_label.setBounds(0,0,150,32);
-            skore_label.setForeground(Color.white);
-            skore_label.setBackground(new Color(6,5,45));
+            //nastavenie skore
+            score_label.setBounds(0,0,150,32);
+            score_label.setForeground(Color.white);
+            score_label.setBackground(new Color(6,5,45));
 
-
-            for(int i = 0; i < Hlavna.hrac.pocet_zivotov; i++){
-                zivoty.add(new Zivot(Hlavna.WIDTH - 96 - 32*i, 3));
+            //nastavenie zivotov
+            for(int i = 0; i < Game.player.lives; i++){
+                lives.add(new Life(Game.WIDTH - 96 - 32*i, 3));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,48 +106,42 @@ public class Level {
     }
 
     public void tick(){
-        for(int i = 0; i < bubaci.size(); i++){
-            bubaci.get(i).tick();
-        }
-        for(int i = 0; i < bubaci.size(); i++){
-            if(Hlavna.hrac.intersects(bubaci.get(i))){
-                //Game Over
-                running = false;
-                break;
-            }
+        for(int i = 0; i < ghosts.size(); i++){
+            ghosts.get(i).tick();
         }
     }
 
-
     public void render(Graphics g){
-        for(int y = 0; y < vyska; y++){
-            for(int x = 0; x < sirka; x++){
-                if(bloky[x][y] != null) bloky[x][y].render(g);
+        for(int y = 0; y < height; y++){
+            for(int x = 0; x < width; x++){
+                if(blocks[x][y] != null) blocks[x][y].render(g);
             }
         }
+
         for(int i = 0; i < apples.size(); i++){
             apples.get(i).render(g);
         }
-        for(int i = 0; i < bubaci.size(); i++){
-            bubaci.get(i).render(g);
-        }
-        for(int i = 0; i < Hlavna.hrac.pocet_zivotov; i++){
-            zivoty.get(i).render(g);
+
+        for(int i = 0; i < ghosts.size(); i++){
+            ghosts.get(i).render(g);
         }
 
-
+        for(int i = 0; i < Game.player.lives; i++){
+            lives.get(i).render(g);
+        }
+        score_label.update(g);
     }
 
-    public void najdi_susedov(Vrchol w){
+    public void find_neighbors(Vertex w){
         int pom_x = w.x;
         int pom_y = w.y;
-        for(Vrchol v : Hlavna.bludisko.graf){
+        for(Vertex v : Game.maze.graph){
             if((v.x == pom_x - 1 && v.y == pom_y)
                 || (v.x == pom_x + 1 && v.y == pom_y)
                 || (v.x == pom_x && v.y == pom_y - 1)
                 || (v.x == pom_x && v.y == pom_y + 1)){
-                w.susedia.add(v);
-                if(!v.susedia.contains(w)) v.susedia.add(w);
+                w.neighbors.add(v);
+                if(!v.neighbors.contains(w)) v.neighbors.add(w);
             }
         }
     }

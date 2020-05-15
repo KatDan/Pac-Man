@@ -29,8 +29,8 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="Hlavna" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Hlavna" />
+    <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Game" />
       <module name="PacMan" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -38,7 +38,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Hlavna" />
+        <item itemvalue="Application.Game" />
       </list>
     </recent_temporary>
   </component>
@@ -59,19 +59,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Level.java</url>
-          <line>115</line>
-          <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Hlavna.java</url>
-          <line>156</line>
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Hlavna.java</url>
-          <line>187</line>
-          <option name="timeStamp" value="63" />
+          <url>file://$PROJECT_DIR$/src/Game.java</url>
+          <line>139</line>
+          <option name="timeStamp" value="66" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

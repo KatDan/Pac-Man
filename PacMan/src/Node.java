@@ -1,15 +1,16 @@
 public class Node{
-    public Vrchol vrchol;
+    public Vertex vertex;
     public Node next;
 
-    public Node(Vrchol c)
+    public Node(Vertex c)
     {
-        vrchol = c;
+        vertex = c;
         next = null;
     }
+
     public Node()
     {
-        vrchol = null;
+        vertex = null;
         next = null;
     }
 

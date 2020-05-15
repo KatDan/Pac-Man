@@ -1,8 +1,8 @@
 import java.awt.*;
 
-public class Blok extends Rectangle {
+public class Block extends Rectangle {
 
-    public Blok(int x, int y){
+    public Block(int x, int y){
         setBounds(x,y,32,32);
     }
 
