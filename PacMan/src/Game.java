@@ -26,6 +26,13 @@ public class Game extends Canvas implements Runnable, KeyListener {
         main_label.setForeground(Color.white);
         main_label.setBackground(new Color(6,5,45));
 
+        //nastavenie skore
+        score_label = new JLabel("Your score: 0", JLabel.CENTER);
+        score_label.setOpaque(true);
+        score_label.setBounds(0,0,150,32);
+        score_label.setForeground(Color.white);
+        score_label.setBackground(new Color(6,5,45));
+
     }
 
     public static Game game;
@@ -35,6 +42,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public static Graph maze;
 
     public static JLabel main_label;
+    public static JLabel score_label;
 
     public static final int WIDTH = 640, HEIGHT = 480;
     public static final String TITLE = "Pac-Man";
@@ -46,7 +54,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         if(isRunning){
             player.tick();
             level.tick();
-            level.score_label.setText("Your score: "+ player.score);
+            score_label.setText("Your score: "+ player.score);
         }
     }
 
@@ -63,7 +71,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
         //update pozicii
         level.render(g);
         player.render(g);
-        level.score_label.setText("Your score: "+ player.score);
+        score_label.setText("Your score: "+ player.score);
+        score_label.updateUI();
 
         g.dispose();
         bs.show();
@@ -115,7 +124,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         //inicializacia frameu a jeho sucasti
         JFrame frame = new JFrame();
         frame.setTitle(Game.TITLE);
-        frame.add(level.score_label);
+        frame.add(score_label);
         frame.add(main_label);
         frame.add(game);
         frame.setResizable(false);
@@ -137,7 +146,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         level = new Level();
         game.render();
         Player.score = 0;
-        level.score_label.setText("Your score: "+ Player.score);
+        score_label.setText("Your score: "+ Player.score);
     }
 
     @Override

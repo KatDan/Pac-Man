@@ -11,7 +11,7 @@ import static javax.imageio.ImageIO.read;
 public class Level {
     public int width;
     public int height;
-    public JLabel score_label;
+    //public JLabel score_label;
 
     public Block[][] blocks;
 
@@ -23,8 +23,7 @@ public class Level {
         apples = new ArrayList<>();
         ghosts = new ArrayList<>();
         lives = new ArrayList<>();
-        score_label = new JLabel("Your score: 0", JLabel.CENTER);
-        score_label.setOpaque(true);
+
 
         try {
             //vygenerovanie mapy a postav z obrazka
@@ -91,10 +90,7 @@ public class Level {
                     }
                 }
             }
-            //nastavenie skore
-            score_label.setBounds(0,0,150,32);
-            score_label.setForeground(Color.white);
-            score_label.setBackground(new Color(6,5,45));
+
 
             //nastavenie zivotov
             for(int i = 0; i < Game.player.lives; i++){
@@ -129,7 +125,7 @@ public class Level {
         for(int i = 0; i < Game.player.lives; i++){
             lives.get(i).render(g);
         }
-        score_label.update(g);
+        Game.score_label.update(g);
     }
 
     public void find_neighbors(Vertex w){
