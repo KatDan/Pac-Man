@@ -20,7 +20,7 @@ Nahraté skóre sa počíta v ľavom hornom rohu okna a stav svojich zvyšných 
 
 ## Programátorská dokumentácia
 Program je napísaný v jazyku _Java 11.0.4_. Okrem základnej knižnice sú použité aj knižnice _javax.swing_, _java.awt_ a _javax.imageio_.
-Obrázky postáv a mapa sú uložené vo formáte _".png"_ v priečinku "resources", ktoré je možné v rovnomenných súboroch formátu _".xcf"_ v prípade potreby meniť.
+Obrázky postáv a mapa sú uložené vo formáte _".png"_ v priečinku **"resources"**, ktoré je možné v rovnomenných súboroch formátu _".xcf"_ v prípade potreby meniť.
 
 ### Hlavné triedy:
 - **Game** - v tejto triede sa inicializujú všetky objekty potrebné na chod programu, spravuje sa _frame_ a taktiež labely. Najpodstatnejšie komponenty triedy sú:
