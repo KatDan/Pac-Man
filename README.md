@@ -19,8 +19,8 @@ Hráč má na začiatku hry 3 životy. Keď ho nejaký bubák chytí, stráca je
 Nahraté skóre sa počíta v ľavom hornom rohu okna a stav svojich zvyšných životov je možné sledovať v pravom hornom rohu.
 
 ## Programátorská dokumentácia
-Program je napísaný v jazyku Java 11.0.4. Okrem základnej knižnice sú použité aj knižnice _javax.swing_,_java.awt_ a _javax.imageio_.
-Obrázky postáv a mapa sú uložené vo formáte ".png" v priečinku "resources", ktoré je možné v rovnomenných súboroch formátu ".xcf" v prípade potreby meniť.
+Program je napísaný v jazyku _Java 11.0.4_. Okrem základnej knižnice sú použité aj knižnice _javax.swing_, _java.awt_ a _javax.imageio_.
+Obrázky postáv a mapa sú uložené vo formáte _".png"_ v priečinku "resources", ktoré je možné v rovnomenných súboroch formátu _".xcf"_ v prípade potreby meniť.
 
 ### Hlavné triedy:
 - **Game** - v tejto triede sa inicializujú všetky objekty potrebné na chod programu, spravuje sa _frame_ a taktiež labely. Najpodstatnejšie komponenty triedy sú:
