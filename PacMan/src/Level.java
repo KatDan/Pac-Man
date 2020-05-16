@@ -1,17 +1,14 @@
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
-import static javax.imageio.ImageIO.read;
 
 public class Level {
     public int width;
     public int height;
-    //public JLabel score_label;
 
     public Block[][] blocks;
 
