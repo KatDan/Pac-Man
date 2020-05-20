@@ -3,10 +3,12 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Rectangle {
     public Player(int x, int y){
-         setBounds(x,y,22,22);
+         setBounds(x,y,PACMANSIZE,PACMANSIZE);
         score = 0;
         lives = 3;
     }
+
+    final static int PACMANSIZE = 22;
 
     public static int score;
     public int lives;
@@ -33,20 +35,20 @@ public class Player extends Rectangle {
                 if(can_move(x+speed + 1, y)) x = x + speed;
                 break;
             case left:
-                head_x = 64;
+                head_x = 2*Images.IMAGESIZE;
                 if(can_move(x-speed - 1, y)) x = x - speed;
                 break;
             case up:
-                head_x = 96;
+                head_x = 3*Images.IMAGESIZE;
                 if(can_move(x, y-speed - 1)) y = y - speed;
                 break;
             case down:
-                head_x = 32;
+                head_x = Images.IMAGESIZE;
                 if(can_move(x, y+speed + 1)) y = y + speed;
                 break;
             case none:
-                head_x = 96;
-                head_y = 32;
+                head_x = 3*Images.IMAGESIZE;
+                head_y = Images.IMAGESIZE;
                 break;
         }
         find_position();
@@ -74,10 +76,10 @@ public class Player extends Rectangle {
     public void render(Graphics g){
         //otvorene alebo zatvorene usta
         if(om_nom_nom_switch) pacman_image = Game.characters.get_character(head_x, head_y);
-        else pacman_image = Game.characters.get_character(96,32);
+        else pacman_image = Game.characters.get_character(3*Images.IMAGESIZE,Images.IMAGESIZE);
 
-        image_edges = new Rectangle(x,y,22,22);
-        g.drawImage(pacman_image,x,y,22,22,null);
+        image_edges = new Rectangle(x,y,PACMANSIZE,PACMANSIZE);
+        g.drawImage(pacman_image,x,y,PACMANSIZE,PACMANSIZE,null);
     }
 
     public boolean can_move(int xx, int yy){
@@ -99,7 +101,7 @@ public class Player extends Rectangle {
     public void find_position(){
         //urci poziciu na stvorcekovej sieti
         for(Vertex v : position.neighbors){
-            if(v.x == x / 32 && v.y == y / 32){
+            if(v.x == x / Level.BLOCKSIZE && v.y == y / Level.BLOCKSIZE){
                 position = v;
                 break;
             }

@@ -7,10 +7,22 @@ import java.util.List;
 
 
 public class Level {
+    final static int BLOCKSIZE = 32;
+    final static String MAPSOURCE = "/mapa.png";
+    final static int BLACK = 0xff000000;
+    final static int WHITE = 0xffffffff;
+    final static int YELLOW = 0xffffff00;
+    final static int RED = 0xffff0000;
+    final static int GREEN = 0xff00ff00;
+    final static int BLUE = 0xff0000ff;
+
+
     public int width;
     public int height;
 
     public Block[][] blocks;
+
+
 
     public List<Apple> apples;
     public List<Ghost> ghosts;
@@ -24,7 +36,7 @@ public class Level {
 
         try {
             //vygenerovanie mapy a postav z obrazka
-            BufferedImage map = ImageIO.read(getClass().getResource("/mapa.png"));
+            BufferedImage map = ImageIO.read(getClass().getResource(MAPSOURCE));
             this.width = map.getWidth();
             this.height = map.getHeight();
 
@@ -38,45 +50,45 @@ public class Level {
                     Vertex v;
                     switch (value){
                         //biela
-                        case 0xffffffff:
-                            apples.add(new Apple(x*32,y*32));
+                        case WHITE:
+                            apples.add(new Apple(x*BLOCKSIZE,y*BLOCKSIZE));
                             v = new Vertex(x,y);
                             find_neighbors(v);
                             Game.maze.graph.add(v);
                             break;
                         //cierna
-                        case 0xff000000:
-                            blocks[x][y] = new Block(x*32,y*32);
+                        case BLACK:
+                            blocks[x][y] = new Block(x*BLOCKSIZE,y*BLOCKSIZE);
                             break;
                         //zlta
-                        case 0xffffff00:
-                            Game.player.x = x*32;
-                            Game.player.y = y*32;
+                        case YELLOW:
+                            Game.player.x = x*BLOCKSIZE;
+                            Game.player.y = y*BLOCKSIZE;
                             v = new Vertex(x,y);
                             Game.player.position = v;
                             find_neighbors(v);
                             Game.maze.graph.add(v);
                             break;
                         //cervena
-                        case 0xffff0000:
+                        case RED:
                             v = new Vertex(x,y);
                             find_neighbors(v);
                             Game.maze.graph.add(v);
-                            ghosts.add(new Ghost(x*32,y*32,0,32,v));
+                            ghosts.add(new Ghost(x*BLOCKSIZE,y*BLOCKSIZE,0,Images.IMAGESIZE,v));
                             break;
                         //modra
-                        case 0xff0000ff:
+                        case BLUE:
                             v = new Vertex(x,y);
                             find_neighbors(v);
                             Game.maze.graph.add(v);
-                            ghosts.add(new Ghost(x*32,y*32,32,32,v));
+                            ghosts.add(new Ghost(x*BLOCKSIZE,y*BLOCKSIZE,Images.IMAGESIZE,Images.IMAGESIZE,v));
                             break;
                         //zelena
-                        case 0xff00ff00:
+                        case GREEN:
                             v = new Vertex(x,y);
                             find_neighbors(v);
                             Game.maze.graph.add(v);
-                            ghosts.add(new Ghost(x*32,y*32,64,32,v));
+                            ghosts.add(new Ghost(x*BLOCKSIZE,y*BLOCKSIZE,2*Images.IMAGESIZE,Images.IMAGESIZE,v));
                             break;
                         default:
                             //bloky okolo bubakov, kde nechceme jablcka
@@ -91,7 +103,7 @@ public class Level {
 
             //nastavenie zivotov
             for(int i = 0; i < Game.player.lives; i++){
-                lives.add(new Life(Game.WIDTH - 96 - 32*i, 3));
+                lives.add(new Life(Game.WIDTH - 3*BLOCKSIZE - BLOCKSIZE*i, 3));
             }
         } catch (IOException e) {
             e.printStackTrace();

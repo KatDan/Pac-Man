@@ -6,13 +6,15 @@ import java.util.Random;
 public class Ghost extends Rectangle {
 
     public Ghost(int x, int y, int offset_x, int offset_y, Vertex v){
-        setBounds(x,y,32,32);
+        setBounds(x,y,GHOSTSIZE,GHOSTSIZE);
         body = Game.characters.get_character(offset_x,offset_y);
         position = v;
         checkpoint = v;
         home = v;
         speed = 1;
     }
+
+    final static int GHOSTSIZE = 32;
 
     public BufferedImage body;
     public Random r = new Random();
@@ -22,7 +24,7 @@ public class Ghost extends Rectangle {
     public Vertex home;
 
     public void render(Graphics g){
-        g.drawImage(body,x,y,32,32,null);
+        g.drawImage(body,x,y,GHOSTSIZE,GHOSTSIZE,null);
     }
 
     public void tick(){
@@ -31,7 +33,7 @@ public class Ghost extends Rectangle {
 
     public void move(){
         find_position();
-        if(Game.player.image_edges.intersects(x,y,32,32)){
+        if(Game.player.image_edges.intersects(x,y,GHOSTSIZE,GHOSTSIZE)){
             //zivot dole
             if(Game.player.lives > 1) {
                 Game.main_label.setVisible(true);
@@ -58,21 +60,21 @@ public class Ghost extends Rectangle {
             possible_targets[1 + i] = Game.player.position.neighbors.get(i);
         }
         //najdenie suradnic najblizsieho bloku na ceste do ciela
-        if((checkpoint.x * 32 == x && checkpoint.y * 32 == y)) checkpoint = Game.maze.bfs(checkpoint,possible_targets[r.nextInt(possible_targets.length)]);
+        if((checkpoint.x * Level.BLOCKSIZE == x && checkpoint.y * Level.BLOCKSIZE == y)) checkpoint = Game.maze.bfs(checkpoint,possible_targets[r.nextInt(possible_targets.length)]);
         else{
-            if(checkpoint.x*32 >= x && checkpoint.y * 32 >= y) {
+            if(checkpoint.x*Level.BLOCKSIZE >= x && checkpoint.y * Level.BLOCKSIZE >= y) {
                 x += speed;
                 y += speed;
             }
-            else if(checkpoint.x*32 >= x && checkpoint.y * 32 <= y) {
+            else if(checkpoint.x*Level.BLOCKSIZE >= x && checkpoint.y * Level.BLOCKSIZE <= y) {
                 x += speed;
                 y -= speed;
             }
-            else if(checkpoint.x*32 <= x && checkpoint.y * 32 >= y) {
+            else if(checkpoint.x*Level.BLOCKSIZE <= x && checkpoint.y * Level.BLOCKSIZE >= y) {
                 x -= speed;
                 y += speed;
             }
-            else if(checkpoint.x*32 <= x && checkpoint.y * 32 <= y) {
+            else if(checkpoint.x*Level.BLOCKSIZE <= x && checkpoint.y * Level.BLOCKSIZE <= y) {
                 x -= speed;
                 y -= speed;
             }
@@ -82,7 +84,7 @@ public class Ghost extends Rectangle {
     public void find_position(){
         //najdenie aktualneho bloku na stvorcekovej sieti
         for(Vertex v : position.neighbors){
-            if(v.x == x / 32 && v.y == y / 32){
+            if(v.x == x / Level.BLOCKSIZE && v.y == y / Level.BLOCKSIZE){
                 position = v;
                 break;
             }

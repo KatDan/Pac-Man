@@ -6,32 +6,42 @@ import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 
+    final static int WIDTH = 640, HEIGHT = 480;
+    final static String CHARACTERICONSOURCE = "/postavy.png";
+    final static int MAINLABELHEIGHT = 100;
+    final static int MAINLABELWIDTH = 300;
+    final static int SCOREWIDTH = 150;
+    final static int SCOREHEIGHT = Level.BLOCKSIZE;
+    final static Color BACKGROUNDCOLOR = new Color(10,8,25);
+    final static String TITLE = "Pac-Man";
+    final static int OMNOMFREQUENCY = 5000;
+
     public Game(){
-        Dimension dimension = new Dimension(Game.WIDTH, Game.HEIGHT);
+        Dimension dimension = new Dimension(WIDTH, HEIGHT);
         setPreferredSize(dimension);
         setMinimumSize(dimension);
         setMaximumSize(dimension);
 
         //inicializacia hlavnych objektov
         addKeyListener(this);
-        characters = new Images("/postavy.png");
+        characters = new Images(CHARACTERICONSOURCE);
         maze = new Graph();
-        player = new Player(Game.WIDTH/2, Game.WIDTH/2);
+        player = new Player(WIDTH/2, WIDTH/2);
         level = new Level();
 
         //nastavenie hlavneho labelu
         main_label = new JLabel("PAUSED",JLabel.CENTER);
         main_label.setOpaque(true);
-        main_label.setBounds(Game.WIDTH/2 - 150, Game.HEIGHT/2 -50, 300,100);
+        main_label.setBounds((WIDTH - MAINLABELWIDTH)/2, (HEIGHT-MAINLABELHEIGHT)/2, MAINLABELWIDTH,MAINLABELHEIGHT);
         main_label.setForeground(Color.white);
-        main_label.setBackground(new Color(6,5,45));
+        main_label.setBackground(Block.BLOCKCOLOR);
 
         //nastavenie skore
         score_label = new JLabel("Your score: 0", JLabel.CENTER);
         score_label.setOpaque(true);
-        score_label.setBounds(0,0,150,32);
+        score_label.setBounds(0,0,SCOREWIDTH,SCOREHEIGHT);
         score_label.setForeground(Color.white);
-        score_label.setBackground(new Color(6,5,45));
+        score_label.setBackground(Block.BLOCKCOLOR);
 
     }
 
@@ -43,9 +53,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     public static JLabel main_label;
     public static JLabel score_label;
-
-    public static final int WIDTH = 640, HEIGHT = 480;
-    public static final String TITLE = "Pac-Man";
 
     public static boolean isPaused = true;
     public static boolean isRunning = true;
@@ -65,8 +72,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
             return;
         }
         Graphics g = bs.getDrawGraphics();
-        g.setColor(new Color(10,8,25));
-        g.fillRect(0,0, Game.WIDTH, Game.HEIGHT);
+        g.setColor(BACKGROUNDCOLOR);
+        g.fillRect(0,0, WIDTH, HEIGHT);
 
         //update pozicii
         level.render(g);
@@ -107,7 +114,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
                     delta--;
                 }
                 //otvaranie a zatvaranie pacmanovych ust
-                if (i % 5000 == 0)
+                if (i % OMNOMFREQUENCY == 0)
                     player.om_nom_nom_switch = !player.om_nom_nom_switch;
 
                 if (System.currentTimeMillis() - timer >= 1000) {
@@ -117,6 +124,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
             else render();
         }
     }
+
 
     public static void main(String[] args){
         game = new Game();

@@ -5,6 +5,7 @@ import java.io.IOException;
 public class Images {
 
     private BufferedImage image;
+    final static int IMAGESIZE = 32;
 
     public Images(String path){
         try {
@@ -15,6 +16,6 @@ public class Images {
     }
 
     public BufferedImage get_character(int x, int y){
-        return image.getSubimage(x,y,32,32);
+        return image.getSubimage(x,y,IMAGESIZE,IMAGESIZE);
     }
 }
