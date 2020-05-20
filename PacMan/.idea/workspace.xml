@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="84019a63-5e3d-458a-bd59-f507daaabe7f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Ghost.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Ghost.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Level.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -83,15 +83,6 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Game.java</url>
-          <line>156</line>
-          <option name="timeStamp" value="66" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="checkpoint" language="JAVA" />

@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
-
+/**
+ * Renders and controls what is happening in the level's map
+ */
 public class Level {
     final static int BLOCKSIZE = 32;
     final static String MAPSOURCE = "/mapa.png";
@@ -21,23 +23,36 @@ public class Level {
     final static int BLUE = 0xff0000ff;
 
 
-    public int width;
-    public int height;
+    int width;
+    int height;
 
+    /**
+     * A list of solid Blocks in a map
+     */
     public Block[][] blocks;
 
-
-
+    /**
+     * A list of apples in a map
+     */
     public List<Apple> apples;
+
+    /**
+     * A list of ghosts
+     */
     public List<Ghost> ghosts;
+
+    /**
+     * A list of life icons
+     */
     public List<Life> lives;
 
+    /**
+     * Constructs a Level from a MAPSOURCE image, creates a map, vertices, ghosts, apples and life icons
+     */
     public Level(){
         apples = new ArrayList<>();
         ghosts = new ArrayList<>();
         lives = new ArrayList<>();
-
-
         try {
             //vygenerovanie mapy a postav z obrazka
             BufferedImage map = ImageIO.read(getClass().getResource(MAPSOURCE));
@@ -114,12 +129,19 @@ public class Level {
         }
     }
 
+    /**
+     * Moves the ghosts
+     */
     public void tick(){
         for(int i = 0; i < ghosts.size(); i++){
             ghosts.get(i).tick();
         }
     }
 
+    /**
+     * Renders the map, ghosts and apples, updates the score and player's lives
+     * @param g
+     */
     public void render(Graphics g){
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){
@@ -141,7 +163,8 @@ public class Level {
         Game.score_label.update(g);
     }
 
-    public void find_neighbors(Vertex w){
+
+    void find_neighbors(Vertex w){
         int pom_x = w.x;
         int pom_y = w.y;
         for(Vertex v : Game.maze.graph){
@@ -154,8 +177,4 @@ public class Level {
             }
         }
     }
-
-
-
-
 }

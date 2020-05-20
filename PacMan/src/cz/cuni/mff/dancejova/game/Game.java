@@ -8,6 +8,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
+/**
+ * The main class
+ */
 public class Game extends Canvas implements Runnable, KeyListener {
 
     final static int WIDTH = 640, HEIGHT = 480;
@@ -20,6 +23,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
     final static String TITLE = "Pac-Man";
     final static int OMNOMFREQUENCY = 5000;
 
+    /**
+     * Creates all the key components of the game
+     */
     public Game(){
         Dimension dimension = new Dimension(WIDTH, HEIGHT);
         setPreferredSize(dimension);
@@ -46,21 +52,50 @@ public class Game extends Canvas implements Runnable, KeyListener {
         score_label.setBounds(0,0,SCOREWIDTH,SCOREHEIGHT);
         score_label.setForeground(Color.white);
         score_label.setBackground(Block.BLOCKCOLOR);
-
     }
 
+    /**
+     * The Game object for managing all the important methods
+     */
     public static Game game;
+    /**
+     * The player object
+     */
     public static Player player;
+    /**
+     * The level object
+     */
     public static Level level;
-    public static Images characters;
+    /**
+     * The Graph object
+     */
     public static Graph maze;
 
+    /**
+     * A label informing player about current state of the game shown in the middle of the screen
+     */
     public static JLabel main_label;
+    
+    /**
+     * A label showing the player's current score
+     */
     public static JLabel score_label;
 
+    /**
+     * true if the game is paused, false otherwise
+     */
     public static boolean isPaused = true;
+
+    /**
+     * true if the game is running, false otherwise
+     */
     public static boolean isRunning = true;
 
+    static Images characters;
+
+    /**
+     * Makes a player's and the ghosts' move
+     */
     public void tick(){
         if(isRunning){
             player.tick();
@@ -69,6 +104,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
         }
     }
 
+    /**
+     * Renders Pac-Man's and the ghosts' move
+     */
     public void render(){
         BufferStrategy bs = getBufferStrategy();
         if(bs == null) {
@@ -89,8 +127,11 @@ public class Game extends Canvas implements Runnable, KeyListener {
         bs.show();
     }
 
-    public int i = 0;
+    int i = 0;
 
+    /**
+     * Manages the ticks and its rendering
+     */
     public void run() {
         //vyrenderovanie zaciatku hry
         render();
@@ -129,7 +170,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
         }
     }
 
-
+    /**
+     * Sets the frame and its components
+     * @param args
+     */
     public static void main(String[] args){
         game = new Game();
 
@@ -151,6 +195,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
         game.run();
     }
 
+    /**
+     * Updates the map to its initial state
+     */
     public static void new_game(){
         //vygeneruje level odznova
         isPaused = true;
@@ -166,6 +213,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     @Override
+    /**
+     * Manages inputs from the keyboard
+     */
     public void keyPressed(KeyEvent e) {
         player.om_nom_nom_switch = true;
         switch (e.getKeyCode()){
@@ -196,6 +246,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     @Override
+    /**
+     * Changes the player's direction to none
+     */
     public void keyReleased(KeyEvent e) {
         player.direction = Player.Direction.none;
         player.om_nom_nom_switch = false;
