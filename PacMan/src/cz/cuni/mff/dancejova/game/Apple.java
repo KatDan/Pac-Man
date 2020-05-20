@@ -1,3 +1,5 @@
+package cz.cuni.mff.dancejova.game;
+
 import java.awt.*;
 
 public class Apple extends Rectangle {

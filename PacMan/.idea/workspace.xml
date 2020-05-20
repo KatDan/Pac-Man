@@ -2,7 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84019a63-5e3d-458a-bd59-f507daaabe7f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Apple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Apple.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Apple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Apple.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ghost.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Ghost.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/graph/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Images.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Level.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Life.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Life.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/graph/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cz/cuni/mff/dancejova/graph/Vertex.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,7 +53,7 @@
   </component>
   <component name="RunManager">
     <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Game" />
+      <option name="MAIN_CLASS_NAME" value="cz.cuni.mff.dancejova.game.Game" />
       <module name="PacMan" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -84,7 +95,7 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Game.java</url>
+          <url>file://$PROJECT_DIR$/src/cz/cuni/mff/dancejova/game/Game.java</url>
           <line>156</line>
           <option name="timeStamp" value="66" />
         </line-breakpoint>

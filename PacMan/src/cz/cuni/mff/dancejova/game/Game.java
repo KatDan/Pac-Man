@@ -1,3 +1,7 @@
+package cz.cuni.mff.dancejova.game;
+
+import cz.cuni.mff.dancejova.graph.Graph;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;

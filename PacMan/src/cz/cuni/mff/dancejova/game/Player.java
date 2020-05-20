@@ -1,3 +1,7 @@
+package cz.cuni.mff.dancejova.game;
+
+import cz.cuni.mff.dancejova.graph.Vertex;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 

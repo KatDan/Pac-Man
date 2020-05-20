@@ -1,3 +1,5 @@
+package cz.cuni.mff.dancejova.graph;
+
 public class Node{
     public Vertex vertex;
     public Node next;
