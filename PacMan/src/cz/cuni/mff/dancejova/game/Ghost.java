@@ -6,9 +6,20 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+/**
+ * Constructs and renders the ghosts
+ */
 
 public class Ghost extends Rectangle {
 
+    /**
+     * Constructs a ghost
+     * @param x The horizontal coordinate
+     * @param y The vertical coordinate
+     * @param offset_x The horizontal coordinate in pixels of an image from Images class used for this ghost
+     * @param offset_y The vertical coordinate in pixels of an image
+     * @param v Starting Vertex of the ghost
+     */
     public Ghost(int x, int y, int offset_x, int offset_y, Vertex v){
         setBounds(x,y,GHOSTSIZE,GHOSTSIZE);
         body = Game.characters.get_character(offset_x,offset_y);
@@ -20,22 +31,45 @@ public class Ghost extends Rectangle {
 
     final static int GHOSTSIZE = 32;
 
-    public BufferedImage body;
-    public Random r = new Random();
+    BufferedImage body;
+    Random r = new Random();
+
+    /**
+     * Vertex the ghost is currently in
+     */
     public Vertex position;
+
+    /**
+     * Vertex that ghost goes to
+     */
     public Vertex checkpoint;
+
+    /**
+     * the ghost's speed
+     */
     public int speed;
+
+    /**
+     * The initial Vertex of the ghost
+     */
     public Vertex home;
 
+    /**
+     * Renders a ghost
+     * @param g
+     */
     public void render(Graphics g){
         g.drawImage(body,x,y,GHOSTSIZE,GHOSTSIZE,null);
     }
 
+    /**
+     * Makes a ghost's move
+     */
     public void tick(){
         move();
     }
 
-    public void move(){
+    void move(){
         find_position();
         if(Game.player.image_edges.intersects(x,y,GHOSTSIZE,GHOSTSIZE)){
             //zivot dole
@@ -85,6 +119,9 @@ public class Ghost extends Rectangle {
         }
     }
 
+    /**
+     * finds a Vertex the ghost is currently in according to its actual position
+     */
     public void find_position(){
         //najdenie aktualneho bloku na stvorcekovej sieti
         for(Vertex v : position.neighbors){

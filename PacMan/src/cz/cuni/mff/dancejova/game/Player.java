@@ -5,7 +5,16 @@ import cz.cuni.mff.dancejova.graph.Vertex;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * Renders and validates Pac-Man's movement
+ */
 public class Player extends Rectangle {
+
+    /**
+     * Constructs Pac-Man
+     * @param x The horizontal coordinate
+     * @param y The vertical coordinate
+     */
     public Player(int x, int y){
          setBounds(x,y,PACMANSIZE,PACMANSIZE);
         score = 0;
@@ -14,22 +23,49 @@ public class Player extends Rectangle {
 
     final static int PACMANSIZE = 22;
 
-    public static int score;
-    public int lives;
-    public Vertex position;
-    public static int head_x, head_y;
-    public static Rectangle image_edges;
 
+    /**
+     * The player's current score
+     */
+    public static int score;
+
+    /**
+     * The player's current number of lives
+     */
+    public int lives;
+
+    /**
+     * The player's position in the map of squares
+     */
+    public Vertex position;
+
+    static int head_x, head_y;
+    static Rectangle image_edges;
+
+    /**
+     * Provides rendering the head looking in the right direction
+     */
     public enum Direction {
         right, left, up, down, none
     };
+
+    /**
+     * The player's current direction
+     */
     public Direction direction = Direction.none;
 
     private int speed = 2;
-    public int i = 0;
-    public boolean om_nom_nom_switch = false;
-    public BufferedImage pacman_image;
 
+    /**
+     * Determines whether the Pac-Man's mouth is open or closed
+     */
+    public boolean om_nom_nom_switch = false;
+
+    BufferedImage pacman_image;
+
+    /**
+     * Moves Pac-Man to the new position, if possible and checks whether it crossed any Apple
+     */
     public void tick(){
         head_y = 0;
         //zisti, kam sa ma pozerat pacman a nastavi podla toho obrazok
@@ -77,6 +113,10 @@ public class Player extends Rectangle {
         }
     }
 
+    /**
+     * Renders Pac-Man to the screen.
+     * @param g
+     */
     public void render(Graphics g){
         //otvorene alebo zatvorene usta
         if(om_nom_nom_switch) pacman_image = Game.characters.get_character(head_x, head_y);
@@ -86,6 +126,12 @@ public class Player extends Rectangle {
         g.drawImage(pacman_image,x,y,PACMANSIZE,PACMANSIZE,null);
     }
 
+    /**
+     * Checks whether Pac-Man can move to the position
+     * @param xx The horizontal coordinate of a new position
+     * @param yy The vertical coordinate of a new position
+     * @return true if Pac-Man can move to [xx,yy], false otherwise
+     */
     public boolean can_move(int xx, int yy){
         //zisti, ci sa moze pohnut na poziciu bez prerazenia steny
         Rectangle image_edges = new Rectangle(xx,yy,width,height);
@@ -102,6 +148,9 @@ public class Player extends Rectangle {
         return true;
     }
 
+    /**
+     * Finds Pac-Man's position in the map of squares according to its actual position
+     */
     public void find_position(){
         //urci poziciu na stvorcekovej sieti
         for(Vertex v : position.neighbors){
