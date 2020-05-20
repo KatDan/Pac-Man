@@ -3,6 +3,10 @@ package cz.cuni.mff.dancejova.graph;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Provides BFS algorithm for ghosts to find the shortest path to Pac-Man
+ */
 public class Graph {
     public Graph(){
         queue = new Node();
@@ -16,6 +20,14 @@ public class Graph {
     public Node result;
     public List<Vertex> graph;
 
+
+    /**
+     * Finds the shortest path from start to end.
+     *
+     * @param start Vertex that is our starting position
+     * @param end Vertex we want to get to
+     * @return Vertex that is neighbor of start and leads to end
+     */
     public Vertex bfs(Vertex start, Vertex end)
     {
         result = new Node();
@@ -67,14 +79,14 @@ public class Graph {
         result.next = pom;
     }
 
-    public Vertex remove_from_stack(){
+    Vertex remove_from_stack(){
         Vertex pom = result.vertex;
         result = result.next;
         return pom;
     }
 
 
-    public void process_result(Vertex start, Vertex end){
+    void process_result(Vertex start, Vertex end){
         Vertex v = end;
         while(v != start && v.p != null){
             add_to_stack(v);
