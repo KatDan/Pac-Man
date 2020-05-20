@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"cz.cuni.mff.dancejova.game"},{"l":"cz.cuni.mff.dancejova.graph"}]

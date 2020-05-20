@@ -75,7 +75,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
      * A label informing player about current state of the game shown in the middle of the screen
      */
     public static JLabel main_label;
-    
+
     /**
      * A label showing the player's current score
      */
